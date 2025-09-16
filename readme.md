@@ -2,7 +2,7 @@
 
 A Node.js command-line application to calculate delivery cost and estimated delivery time for packages using a fleet of vehicles. Built with OOP principles and following SOLID design patterns, this project is scalable and extensible for additional offers, vehicles, and scheduling rules.
 
-Table of Contents
+## Table of Contents
 
 Features
 
