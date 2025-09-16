@@ -56,7 +56,8 @@ Assign delivery times to packages accurately.
 
 Clone the repository:
 
-git clone https://github.com/<your-username>/courier-service.git
+
+git clone https://github.com/ayeshaazhari/courier-service
 cd courier-service
 
 Install dependencies (none required except Node.js):
