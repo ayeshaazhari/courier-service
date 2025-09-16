@@ -90,7 +90,7 @@ PKG4 105 1395 0.85
 PKG5 0 2125 4.19
 
 ## Project Structure
-
+```bash
 .
 ├── index.js # Main CLI entry point
 ├── models
@@ -109,6 +109,7 @@ PKG5 0 2125 4.19
 └── utils
     └── inputParser.js # Parses CLI input
 
+```
 ## Design & Principles
 
 OOP Design: Each entity (Package, Vehicle, Offer) encapsulates its data and behavior.
