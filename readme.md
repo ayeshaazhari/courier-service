@@ -90,24 +90,24 @@ PKG4 105 1395 0.85
 PKG5 0 2125 4.19
 
 ## Project Structure
-courier-service/
-│── index.js # Main CLI entry point
-│── input.txt # Sample input
-│
-├── models/
-│ ├── Package.js # Package entity
-│ ├── Offer.js # Offer entity
-│ ├── Vehicle.js # Vehicle entity
-│
-├── repositories/
-│ └── OfferRepository.js # Store and fetch offers
-│
-├── services/
-│ ├── CostCalculator.js # Calculates total cost & discount
-│ ├── DeliveryScheduler.js # Schedules packages to vehicles
-│
-└── utils/
-└── InputParser.js # Parses CLI input
+
+.
+├── index.js # Main CLI entry point
+├── models
+│   ├── Offer.js # Offer entity
+│   ├── Package.js # Package entity
+│   └── Vehicle.js # Vehicle entity
+├── package.json
+├── problem1.txt # Sample input for cost calculation
+├── problem2.txt # Sample input for time estimation
+├── readme.md
+├── repositories
+│   └── Offerrepository.js # Store and fetch offers
+├── services
+│   ├── costCalculator.js  # Calculates total cost & discount
+│   └── DeliveryScheduler.js  # Schedules packages to vehicles
+└── utils
+    └── inputParser.js # Parses CLI input
 
 ## Design & Principles
 
