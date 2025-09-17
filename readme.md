@@ -68,7 +68,7 @@ Ensure Node.js is installed (v14+ recommended).
 
 ## Usage
 
-Create an input.txt file with package & vehicle details:
+Create an txt file with package & vehicle details:
 
 100 5
 
@@ -143,7 +143,7 @@ Extensible: Add more vehicles, offers, or change scheduling rules easily.
 
 ## Example Input/Output
 
-Input (input.txt)
+Input (problem1.txt)
 
 100 5
 
