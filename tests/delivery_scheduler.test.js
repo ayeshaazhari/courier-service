@@ -44,8 +44,6 @@ describe("DeliveryScheduler", () => {
 
     scheduler.schedule(packages);
 
-    console.log("packages", packages);
-
     // PKG1 should not be scheduled because >200kg
     expect(packages[0].estimatedDeliveryTime).toBe(0);
     expect(packages[1].estimatedDeliveryTime).toBeDefined();

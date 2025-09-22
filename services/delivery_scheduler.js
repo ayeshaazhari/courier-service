@@ -1,4 +1,4 @@
-const AppError = require("../utils/appError");
+const AppError = require("../utils/app_error");
 const InputValidator = require("../utils/validator");
 
 class DeliveryScheduler {
@@ -20,25 +20,34 @@ class DeliveryScheduler {
       let pending = [...packages];
 
       // Utility: get all subsets under maxWeight
-      const getValidShipments = (pkgs, maxWeight) => {
-        const results = [];
-        const n = pkgs.length;
+      const getValidShipmentsGreedy = (pkgs, maxWeight) => {
+        // Sort packages: heavier first, then by original order
+        const sortedPkgs = [...pkgs].sort((a, b) => b.weight - a.weight);
 
-        const backtrack = (i, current, totalWeight) => {
-          if (totalWeight <= maxWeight && current.length > 0) {
-            results.push([...current]);
-          }
-          for (let j = i; j < n; j++) {
-            if (totalWeight + pkgs[j].weight <= maxWeight) {
-              current.push(pkgs[j]);
-              backtrack(j + 1, current, totalWeight + pkgs[j].weight);
-              current.pop();
+        const shipments = [];
+        const used = new Array(sortedPkgs.length).fill(false);
+
+        while (used.includes(false)) {
+          let shipment = [];
+          let totalWeight = 0;
+
+          for (let i = 0; i < sortedPkgs.length; i++) {
+            if (!used[i] && totalWeight + sortedPkgs[i].weight <= maxWeight) {
+              shipment.push(sortedPkgs[i]);
+              totalWeight += sortedPkgs[i].weight;
+              used[i] = true;
             }
           }
-        };
 
-        backtrack(0, [], 0);
-        return results;
+          if (shipment.length > 0) {
+            shipments.push(shipment);
+          } else {
+            // If no package fits, break to avoid infinite loop
+            break;
+          }
+        }
+
+        return shipments;
       };
 
       while (pending.length > 0) {
@@ -49,7 +58,10 @@ class DeliveryScheduler {
         let tripStart = vehicle.availableAt;
 
         // Get all possible shipments under vehicle max weight
-        let validShipments = getValidShipments(pending, vehicle.maxWeight);
+        let validShipments = getValidShipmentsGreedy(
+          pending,
+          vehicle.maxWeight
+        );
 
         // if (validShipments.length === 0) break;
 

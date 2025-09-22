@@ -1,22 +1,23 @@
 class Offer {
-  constructor(code, discountPercent, minDist, maxDist, minWeight, maxWeight) {
+  constructor({ code, discountPercentage, conditions }) {
     this.code = code;
-    this.discountPercent = discountPercent;
-    this.minDist = minDist;
-    this.maxDist = maxDist;
-    this.minWeight = minWeight;
-    this.maxWeight = maxWeight;
+    this.discountPercentage = discountPercentage;
+    this.conditions = conditions;
   }
+
   isApplicable(pkg) {
+    const { minWeight, maxWeight, minDistance, maxDistance } = this.conditions;
     return (
-      pkg.distance >= this.minDist &&
-      pkg.distance <= this.maxDist &&
-      pkg.weight >= this.minWeight &&
-      pkg.weight <= this.maxWeight
+      pkg.weight >= minWeight &&
+      pkg.weight <= maxWeight &&
+      pkg.distance >= minDistance &&
+      pkg.distance <= maxDistance
     );
   }
   apply(pkg, baseCost) {
-    return this.isApplicable(pkg) ? (baseCost * this.discountPercent) / 100 : 0;
+    return this.isApplicable(pkg)
+      ? (baseCost * this.discountPercentage) / 100
+      : 0;
   }
 }
 module.exports = Offer;

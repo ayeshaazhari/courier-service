@@ -1,10 +1,10 @@
 const fs = require("fs");
-const InputParser = require("./utils/inputParser");
-const OfferRepository = require("./repositories/offerrepository");
-const CostCalculator = require("./services/costCalculator");
-const DeliveryScheduler = require("./services/DeliveryScheduler");
+const InputParser = require("./utils/input_parser");
+const OfferRepository = require("./repositories/offer_repository");
+const CostCalculator = require("./services/cost_calculator");
+const DeliveryScheduler = require("./services/delivery_scheduler");
 const InputValidator = require("./utils/validator");
-const AppError = require("./utils/appError");
+const AppError = require("./utils/app_error");
 
 function main() {
   try {

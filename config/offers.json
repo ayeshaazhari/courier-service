@@ -1,0 +1,33 @@
+[
+    {
+      "code": "OFR001",
+      "discountPercentage": 10,
+      "conditions": {
+        "minWeight": 70,
+        "maxWeight": 200,
+        "minDistance": 0,
+        "maxDistance": 200
+      }
+    },
+    {
+      "code": "OFR002",
+      "discountPercentage": 7,
+      "conditions": {
+        "minWeight": 100,
+        "maxWeight": 250,
+        "minDistance": 50,
+        "maxDistance": 150
+      }
+    },
+    {
+      "code": "OFR003",
+      "discountPercentage": 5,
+      "conditions": {
+        "minWeight": 10,
+        "maxWeight": 150,
+        "minDistance": 50,
+        "maxDistance": 250
+      }
+    }
+  ]
+  

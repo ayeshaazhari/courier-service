@@ -1,5 +1,6 @@
-const AppError = require("../utils/appError");
+const AppError = require("../utils/app_error");
 const InputValidator = require("../utils/validator");
+const { COST_PER_KG, COST_PER_KM } = require("../config/constants");
 
 class CostCalculator {
   constructor(baseDeliveryCost, offerRepo) {
@@ -12,7 +13,10 @@ class CostCalculator {
 
   calculate(pkg) {
     try {
-      let baseCost = this.baseDeliveryCost + pkg.weight * 10 + pkg.distance * 5;
+      let baseCost =
+        this.baseDeliveryCost +
+        pkg.weight * COST_PER_KG +
+        pkg.distance * COST_PER_KM;
 
       let offer = this.offerRepo.getOffer(pkg.offerCode);
       let discount = offer ? offer.apply(pkg, baseCost) : 0;
