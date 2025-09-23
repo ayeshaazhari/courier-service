@@ -117,8 +117,23 @@ PKG5 0 2125 4.19
 ├── services
 │   ├── costCalculator.js  # Calculates total cost & discount
 │   └── DeliveryScheduler.js  # Schedules packages to vehicles
+├── config
+│   ├── constants.js  # app constants
+│   └── offer.json  # offer codes 
+├── tests
+│   ├── costCalculator.test.js
+│   ├── deliveryScheduler.test.js
+│   ├── offerManager.test.js
+│   └── validator.test.js
 └── utils
-    └── inputParser.js # Parses CLI input
+    ├── appError.js
+    ├── inputParser.js
+    ├── offerManager.js
+    ├── packageManager.js
+    ├── schedulerManager.js
+    ├── shipmentManager.js
+    ├── validator.js
+    └── vehicleManager.js
 
 ```
 ## Design & Principles
