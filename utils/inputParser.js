@@ -1,6 +1,6 @@
 const Package = require("../models/Package");
 const Vehicle = require("../models/Vehicle");
-const AppError = require("./app_error");
+const AppError = require("./appError");
 const InputValidator = require("./validator");
 
 class InputParser {

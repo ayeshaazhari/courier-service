@@ -1,4 +1,4 @@
-const AppError = require("../utils/app_error");
+const AppError = require("../utils/appError");
 const InputValidator = require("../utils/validator");
 
 class DeliveryScheduler {
@@ -62,8 +62,6 @@ class DeliveryScheduler {
           pending,
           vehicle.maxWeight
         );
-
-        // if (validShipments.length === 0) break;
 
         if (validShipments.length === 0) {
           throw new AppError(

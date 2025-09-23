@@ -1,4 +1,4 @@
-const AppError = require("../utils/app_error");
+const AppError = require("../utils/appError");
 const InputValidator = require("../utils/validator");
 const { COST_PER_KG, COST_PER_KM } = require("../config/constants");
 

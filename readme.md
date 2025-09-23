@@ -115,7 +115,7 @@ PKG5 0 2125 4.19
 ├── problem2.txt # Sample input for time estimation
 ├── readme.md
 ├── repositories
-│   └── Offerrepository.js # Store and fetch offers
+│   └── OfferRepository.js # Store and fetch offers
 ├── services
 │   ├── costCalculator.js  # Calculates total cost & discount
 │   └── DeliveryScheduler.js  # Schedules packages to vehicles

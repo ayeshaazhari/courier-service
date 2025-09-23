@@ -1,4 +1,4 @@
-const AppError = require("./app_error");
+const AppError = require("./appError");
 
 class InputValidator {
   static validateVehicles(vehicles) {
