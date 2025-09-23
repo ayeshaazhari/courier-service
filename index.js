@@ -1,6 +1,6 @@
 const fs = require("fs");
 const InputParser = require("./utils/inputParser");
-const OfferRepository = require("./repositories/offerRepository");
+const offerManager = require("./utils/offerManager");
 const CostCalculator = require("./services/costCalculator");
 const DeliveryScheduler = require("./services/deliveryScheduler");
 const InputValidator = require("./utils/validator");
@@ -24,7 +24,7 @@ function main() {
 
     const { baseCost, packages, vehicles } = InputParser.parseInput(input);
 
-    const offerRepo = new OfferRepository();
+    const offerRepo = new offerManager();
 
     const calculator = new CostCalculator(baseCost, offerRepo);
     packages.forEach((p) => calculator.calculate(p));

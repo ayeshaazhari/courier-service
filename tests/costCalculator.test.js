@@ -47,11 +47,27 @@ class MockOfferRepo {
   }
 }
 
+class FaultyOfferRepo {
+  getOffer() {
+    return {
+      apply: () => {
+        throw new Error("Offer rule broken!");
+      },
+    };
+  }
+}
+
 describe("CostCalculator with OfferRepo", () => {
   let calculator;
 
   beforeAll(() => {
     calculator = new CostCalculator(100, new MockOfferRepo());
+  });
+
+  test("should throw error if offerManager is not provided", () => {
+    expect(() => new CostCalculator(100, null)).toThrow(
+      "Offer manager must be provided."
+    );
   });
 
   test("should apply OFR001 correctly when conditions are met", () => {
@@ -106,5 +122,29 @@ describe("CostCalculator with OfferRepo", () => {
     const baseCost = 100 + 20 * 10 + 20 * 5; // 100 + 200 + 100 = 400
     expect(pkg.discount).toBe(0);
     expect(pkg.totalCost).toBe(baseCost);
+  });
+
+  test("should handle very large weight and distance", () => {
+    const pkg = new Package("PKG_BIG", 100000, 50000, "OFR001");
+    calculator.calculate(pkg);
+    expect(pkg.totalCost).toBe(1250100);
+    expect(pkg.discount).toBeGreaterThanOrEqual(0);
+  });
+
+  test("should calculate cost correctly for zero weight and distance", () => {
+    const pkg = new Package("PKG_ZERO", 0, 0, "OFR003");
+    calculator.calculate(pkg);
+
+    const baseCost = 100; // only baseDeliveryCost applies
+    expect(pkg.discount).toBe(0);
+    expect(pkg.totalCost).toBe(baseCost);
+  });
+
+  test("should wrap error if offer apply throws exception", () => {
+    const faultyCalculator = new CostCalculator(100, new FaultyOfferRepo());
+    const pkg = new Package("PKG_FAULT", 50, 50, "OFR001");
+    expect(() => faultyCalculator.calculate(pkg)).toThrow(
+      /Failed to calculate cost/
+    );
   });
 });

@@ -1,14 +1,13 @@
 const AppError = require("../utils/appError");
-const InputValidator = require("../utils/validator");
 const { COST_PER_KG, COST_PER_KM } = require("../config/constants");
 
 class CostCalculator {
-  constructor(baseDeliveryCost, offerRepo) {
-    if (!offerRepo) {
-      throw new AppError("Offer repository must be provided.");
+  constructor(baseDeliveryCost, offerManager) {
+    if (!offerManager) {
+      throw new AppError("Offer manager must be provided.");
     }
     this.baseDeliveryCost = baseDeliveryCost;
-    this.offerRepo = offerRepo;
+    this.offerManager = offerManager;
   }
 
   calculate(pkg) {
@@ -18,7 +17,7 @@ class CostCalculator {
         pkg.weight * COST_PER_KG +
         pkg.distance * COST_PER_KM;
 
-      let offer = this.offerRepo.getOffer(pkg.offerCode);
+      let offer = this.offerManager.getOffer(pkg.offerCode);
       let discount = offer ? offer.apply(pkg, baseCost) : 0;
 
       pkg.discount = discount;

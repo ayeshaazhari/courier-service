@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const Offer = require("../models/Offer");
 
-class OfferRepository {
+class OfferManager {
   constructor() {
     this.offers = new Map();
     this.loadOffers();
@@ -27,4 +27,4 @@ class OfferRepository {
   }
 }
 
-module.exports = OfferRepository;
+module.exports = OfferManager;

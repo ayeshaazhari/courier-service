@@ -1,4 +1,4 @@
-const DeliveryScheduler = require("../services/DeliveryScheduler");
+const DeliveryScheduler = require("../services/deliveryScheduler");
 const Package = require("../models/Package");
 
 class Vehicle {
@@ -36,17 +36,22 @@ describe("DeliveryScheduler", () => {
     });
   });
 
-  test("should not exceed vehicle max weight", () => {
+  test("should handle very large weight and distance without crashing", () => {
     const packages = [
-      new Package("PKG1", 250, 100, "NA"), // too heavy for vehicle
-      new Package("PKG2", 150, 50, "NA"), // valid
+      new Package("PKG1", 500000, 30, "NA"),
+      new Package("PKG2", 75, 1200005, "NA"),
+      new Package("PKG3", 175, 100, "NA"),
+      new Package("PKG4", 110, 60, "NA"),
+      new Package("PKG5", 155, 95, "NA"),
     ];
 
-    scheduler.schedule(packages);
-
-    // PKG1 should not be scheduled because >200kg
-    expect(packages[0].estimatedDeliveryTime).toBe(0);
-    expect(packages[1].estimatedDeliveryTime).toBeDefined();
+    expect(() =>
+      scheduler
+        .schedule(packages)
+        .toThrow(
+          "Some packages cannot be scheduled due to exceeding vehicle capacity."
+        )
+    );
   });
 
   test("should prioritize heavier shipments when multiple fit", () => {
@@ -85,5 +90,19 @@ describe("DeliveryScheduler", () => {
 
     const unscheduled = packages.filter((p) => !p.estimatedDeliveryTime);
     expect(unscheduled.length).toBe(0);
+  });
+
+  test("should throw AppError when no shipment is found", () => {
+    expect(() =>
+      scheduler.schedule([{ id: "PKG1", weight: 2000, distance: 5000 }])
+    ).toThrow(
+      "Some packages cannot be scheduled due to exceeding vehicle capacity."
+    );
+  });
+
+  test("should throw AppError if vehicles validation fails", () => {
+    expect(() => new DeliveryScheduler(null)).toThrow(
+      "Invalid vehicles configuration: Vehicles list must be a non-empty array."
+    );
   });
 });
